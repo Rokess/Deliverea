@@ -2,14 +2,21 @@
 
 namespace Deliverea\CoffeeMachine\Console;
 
+use Deliverea\CoffeeMachine\Service\MakeDrinkService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeDrinkCommand extends Command
+final class MakeDrinkCommand extends Command
 {
+    private $makeDrinkService;
+
+    public function __construct(MakeDrinkService $makeDrinkService) {
+        $this->makeDrinkService = $makeDrinkService;
+    }
+
     protected static $defaultName = 'app:order-drink';
 
     protected function configure()
