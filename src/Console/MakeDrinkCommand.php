@@ -51,9 +51,13 @@ final class MakeDrinkCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $drinkType = strtolower($input->getArgument('drink-type'));
-        if (!in_array($drinkType, ['tea', 'coffee', 'chocolate'])) {
+
+        if (!$this->makeDrinkService->checkDrinkSelected($drinkType)) {
             $output->writeln('The drink type should be tea, coffee or chocolate.');
-        } else {
+
+            return;
+        }
+
             /**
              * Tea       --> 0.4
              * Coffee    --> 0.5
@@ -100,6 +104,5 @@ final class MakeDrinkCommand extends Command
             } else {
                 $output->writeln('The number of sugars should be between 0 and 2.');
             }
-        }
     }
 }
