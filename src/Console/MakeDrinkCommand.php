@@ -85,7 +85,5 @@ final class MakeDrinkCommand extends Command
         if ($sugars > 0) {
             $output->write(' with ' . $sugars . ' sugars (stick included)');
         }
-
-        $output->writeln('');
     }
 }
