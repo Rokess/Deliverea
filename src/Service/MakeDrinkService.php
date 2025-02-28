@@ -32,7 +32,7 @@ final class MakeDrinkService
         return $sugarAmount >= 0 && $sugarAmount <= self::SugarMaximumCount;
     }
 
-    public function setFinalMessage($drinkType, string $extraHot, string $sugars): string
+    public function setFinalMessage(string $drinkType, string $extraHot, string $sugars): string
     {
         $finalMessage = 'You have ordered a ' . $drinkType;
 
