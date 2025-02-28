@@ -12,13 +12,15 @@ final class MakeDrinkService
         'chocolate' => 0.6
     ];
     private const SugarMaximumCount = 2;
+    private const DrinkTypeErrorMessage = 'The drink type should be tea, coffee or chocolate.';
+    private const SugarErrorMessage = 'The number of sugars should be between 0 and 2.';
 
-    public function checkDrinkSelected(string $drinkTypeSelected): bool
+    private function checkDrinkSelected(string $drinkTypeSelected): bool
     {
         return array_key_exists($drinkTypeSelected, self::DrinkTypeWithPrice);
     }
 
-    public function checkDrinkPrice(string $drinkTypeSelected, int $money): ?string
+    private function checkDrinkPrice(string $drinkTypeSelected, int $money): ?string
     {
         if ($money < self::DrinkTypeWithPrice[$drinkTypeSelected]) {
             return $drinkTypeSelected.' costs '.self::DrinkTypeWithPrice[$drinkTypeSelected];
@@ -27,12 +29,12 @@ final class MakeDrinkService
         return null;
     }
 
-    public function checkSugarSelected(string $sugarAmount): bool
+    private function checkSugarSelected(int $sugarAmount): bool
     {
         return $sugarAmount >= 0 && $sugarAmount <= self::SugarMaximumCount;
     }
 
-    public function setFinalMessage(string $drinkType, string $extraHot, string $sugars): string
+    private function setFinalMessage(string $drinkType, bool $extraHot, int $sugars): string
     {
         $finalMessage = 'You have ordered a ' . $drinkType;
 
@@ -45,5 +47,24 @@ final class MakeDrinkService
         }
 
         return $finalMessage;
+    }
+
+    public function makeDrinksChecks(string $drinkType, int $money, int $sugars, bool $extraHot): string
+    {
+        if (!$this->checkDrinkSelected($drinkType)) {
+            return self::DrinkTypeErrorMessage;
+        }
+
+        $checkDrink = $this->checkDrinkPrice($drinkType, $money);
+
+        if (!$checkDrink) {
+            return $checkDrink;
+        }
+
+        if (!$this->checkSugarSelected($sugars)) {
+            return self::SugarErrorMessage;
+        }
+
+        return $this->setFinalMessage($drinkType, $extraHot, $sugars);
     }
 }

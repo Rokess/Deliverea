@@ -51,33 +51,11 @@ final class MakeDrinkCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $drinkType = strtolower($input->getArgument('drink-type'));
-
-        if (!$this->makeDrinkService->checkDrinkSelected($drinkType)) {
-            $output->writeln('The drink type should be tea, coffee or chocolate.');
-
-            return;
-        }
-
         $money = $input->getArgument('money');
-        $checkDrink = $this->makeDrinkService->checkDrinkPrice($drinkType, $money);
-
-        if (!$checkDrink) {
-            $output->writeln($checkDrink);
-
-            return;
-        }
-
         $sugars = $input->getArgument('sugars');
         $extraHot = $input->getOption('extra-hot');
 
-        if (!$this->makeDrinkService->checkSugarSelected($sugars)) {
-            $output->writeln('The number of sugars should be between 0 and 2.');
 
-            return;
-        }
-
-        $finalMessage = $this->makeDrinkService->setFinalMessage($drinkType, $extraHot, $sugars);
-
-        $output->writeln($finalMessage);
+        $output->writeln($this->makeDrinkService->makeDrinksChecks($drinkType, $money, $sugars, $extraHot));
     }
 }
