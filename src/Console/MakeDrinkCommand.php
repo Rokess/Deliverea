@@ -76,14 +76,8 @@ final class MakeDrinkCommand extends Command
             return;
         }
 
-        $output->write('You have ordered a ' . $drinkType);
+        $finalMessage = $this->makeDrinkService->setFinalMessage($drinkType, $extraHot, $sugars);
 
-        if ($extraHot) {
-            $output->write(' extra hot');
-        }
-
-        if ($sugars > 0) {
-            $output->write(' with ' . $sugars . ' sugars (stick included)');
-        }
+        $output->writeln($finalMessage);
     }
 }
