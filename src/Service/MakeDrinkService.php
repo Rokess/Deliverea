@@ -11,6 +11,7 @@ final class MakeDrinkService
         'coffee' => 0.5,
         'chocolate' => 0.6
     ];
+    private const SugarMaximumCount = 2;
 
     public function checkDrinkSelected(string $drinkTypeSelected): bool
     {
@@ -24,5 +25,10 @@ final class MakeDrinkService
         }
 
         return null;
+    }
+
+    public function checkSugarSelected(string $sugarAmount): bool
+    {
+        return $sugarAmount >= 0 && $sugarAmount <= self::SugarMaximumCount;
     }
 }

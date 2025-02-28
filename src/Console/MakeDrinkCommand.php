@@ -68,23 +68,24 @@ final class MakeDrinkCommand extends Command
         }
 
         $sugars = $input->getArgument('sugars');
-        $stick = false;
         $extraHot = $input->getOption('extra-hot');
-        if ($sugars >= 0 && $sugars <= 2) {
-            $output->write('You have ordered a ' . $drinkType);
-            if ($extraHot) {
-                $output->write(' extra hot');
-            }
 
-            if ($sugars > 0) {
-                $stick = true;
-                if($stick) {
-                    $output->write(' with ' . $sugars . ' sugars (stick included)');
-                }
-            }
-            $output->writeln('');
-        } else {
+        if (!$this->makeDrinkService->checkSugarSelected($sugars)) {
             $output->writeln('The number of sugars should be between 0 and 2.');
+
+            return;
         }
+
+        $output->write('You have ordered a ' . $drinkType);
+
+        if ($extraHot) {
+            $output->write(' extra hot');
+        }
+
+        if ($sugars > 0) {
+            $output->write(' with ' . $sugars . ' sugars (stick included)');
+        }
+
+        $output->writeln('');
     }
 }
