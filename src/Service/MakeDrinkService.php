@@ -6,8 +6,7 @@ namespace Deliverea\CoffeeMachine\Service;
 
 final class MakeDrinkService
 {
-    private const DrinkType = ['tea', 'coffee', 'chocolate'];
-    private const DrinkPrice = [
+    private const DrinkTypeWithPrice = [
         'tea' => 0.4,
         'coffee' => 0.5,
         'chocolate' => 0.6
@@ -15,13 +14,13 @@ final class MakeDrinkService
 
     public function checkDrinkSelected(string $drinkTypeSelected): bool
     {
-        return in_array($drinkTypeSelected, self::DrinkType);
+        return array_key_exists($drinkTypeSelected, self::DrinkTypeWithPrice);
     }
 
     public function checkDrinkPrice(string $drinkTypeSelected, int $money): ?string
     {
-        if ($money < self::DrinkPrice[$drinkTypeSelected]) {
-            return $drinkTypeSelected.' costs '.self::DrinkPrice[$drinkTypeSelected];
+        if ($money < self::DrinkTypeWithPrice[$drinkTypeSelected]) {
+            return $drinkTypeSelected.' costs '.self::DrinkTypeWithPrice[$drinkTypeSelected];
         }
 
         return null;
