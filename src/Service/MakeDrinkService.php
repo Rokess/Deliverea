@@ -13,8 +13,17 @@ final class MakeDrinkService
         'chocolate' => 0.6
     ];
 
-    public function checkDrinkSelected(string $drinkType): bool
+    public function checkDrinkSelected(string $drinkTypeSelected): bool
     {
-        return in_array($drinkType, self::DrinkType);
+        return in_array($drinkTypeSelected, self::DrinkType);
+    }
+
+    public function checkDrinkPrice(string $drinkTypeSelected, int $money): ?string
+    {
+        if ($money < self::DrinkPrice[$drinkTypeSelected]) {
+            return $drinkTypeSelected.' costs '.self::DrinkPrice[$drinkTypeSelected];
+        }
+
+        return null;
     }
 }
