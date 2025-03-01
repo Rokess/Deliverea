@@ -11,13 +11,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class MakeDrinkCommand extends Command
 {
+    protected const CommandName = 'app:order-drink';
     private $makeDrinkService;
 
     public function __construct(MakeDrinkService $makeDrinkService) {
+        parent::__construct(self::CommandName);
         $this->makeDrinkService = $makeDrinkService;
     }
-
-    protected static $defaultName = 'app:order-drink';
 
     protected function configure()
     {
@@ -44,7 +44,7 @@ final class MakeDrinkCommand extends Command
             'extra-hot',
             'e',
             InputOption::VALUE_NONE,
-            $description = 'If the user wants to make the drink extra hot'
+            'If the user wants to make the drink extra hot'
         );
     }
 
@@ -55,7 +55,8 @@ final class MakeDrinkCommand extends Command
         $sugars = $input->getArgument('sugars');
         $extraHot = $input->getOption('extra-hot');
 
-
         $output->writeln($this->makeDrinkService->makeDrinksChecks($drinkType, $money, $sugars, $extraHot));
+
+        return Command::SUCCESS;
     }
 }
