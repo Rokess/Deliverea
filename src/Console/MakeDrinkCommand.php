@@ -17,7 +17,7 @@ final class MakeDrinkCommand extends Command
     private $makeDrinkService;
 
     public function __construct(MakeDrinkService $makeDrinkService) {
-        parent::__construct('app:order-drink');
+        parent::__construct(self::COMMAND_NAME);
         $this->makeDrinkService = $makeDrinkService;
     }
 
@@ -50,15 +50,15 @@ final class MakeDrinkCommand extends Command
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $drinkType = strtolower($input->getArgument('drink-type'));
-        $money = $input->getArgument('money');
-        $sugars = $input->getArgument('sugars');
+        $money = (int) $input->getArgument('money') ?? null;
+        $sugars = (int) $input->getArgument('sugars') ?? null;
         $extraHot = $input->getOption('extra-hot');
 
         $output->writeln($this->makeDrinkService->makeDrinksChecks($drinkType, $money, $sugars, $extraHot));
 
-        return Command::SUCCESS;
+        return 0;
     }
 }

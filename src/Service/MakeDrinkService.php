@@ -20,7 +20,7 @@ final class MakeDrinkService
         return array_key_exists($drinkTypeSelected, self::DrinkTypeWithPrice);
     }
 
-    private function checkDrinkPrice(string $drinkTypeSelected, int $money): ?string
+    private function checkDrinkPrice(string $drinkTypeSelected, ?float $money): ?string
     {
         if ($money < self::DrinkTypeWithPrice[$drinkTypeSelected]) {
             return $drinkTypeSelected.' costs '.self::DrinkTypeWithPrice[$drinkTypeSelected];
@@ -29,7 +29,7 @@ final class MakeDrinkService
         return null;
     }
 
-    private function checkSugarSelected(int $sugarAmount): bool
+    private function checkSugarSelected(?int $sugarAmount): bool
     {
         return $sugarAmount >= 0 && $sugarAmount <= self::SugarMaximumCount;
     }
@@ -49,7 +49,7 @@ final class MakeDrinkService
         return $finalMessage;
     }
 
-    public function makeDrinksChecks(string $drinkType, int $money, int $sugars, bool $extraHot): string
+    public function makeDrinksChecks(string $drinkType, ?int $money, ?int $sugars, bool $extraHot): string
     {
         if (!$this->checkDrinkSelected($drinkType)) {
             return self::DrinkTypeErrorMessage;
@@ -57,7 +57,7 @@ final class MakeDrinkService
 
         $checkDrink = $this->checkDrinkPrice($drinkType, $money);
 
-        if (!$checkDrink) {
+        if ($checkDrink) {
             return $checkDrink;
         }
 
