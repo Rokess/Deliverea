@@ -23,7 +23,7 @@ final class MakeDrinkService
     private function checkDrinkPrice(string $drinkTypeSelected, ?float $money): ?string
     {
         if ($money < self::DrinkTypeWithPrice[$drinkTypeSelected]) {
-            return $drinkTypeSelected.' costs '.self::DrinkTypeWithPrice[$drinkTypeSelected];
+            return 'The '.$drinkTypeSelected.' costs '.self::DrinkTypeWithPrice[$drinkTypeSelected].'.';
         }
 
         return null;
@@ -49,7 +49,7 @@ final class MakeDrinkService
         return $finalMessage;
     }
 
-    public function makeDrinksChecks(string $drinkType, ?int $money, ?int $sugars, bool $extraHot): string
+    public function makeDrinksChecks(string $drinkType, ?float $money, ?int $sugars, bool $extraHot): string
     {
         if (!$this->checkDrinkSelected($drinkType)) {
             return self::DrinkTypeErrorMessage;
