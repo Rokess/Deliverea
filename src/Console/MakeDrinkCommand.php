@@ -55,7 +55,7 @@ final class MakeDrinkCommand extends Command
         $drinkType = strtolower($input->getArgument('drink-type'));
         $money = (int) $input->getArgument('money') ?? null;
         $sugars = (int) $input->getArgument('sugars') ?? null;
-        $extraHot = $input->getOption('extra-hot');
+        $extraHot = $input->getOption('extra-hot') ?? false;
 
         $output->writeln($this->makeDrinkService->makeDrinksChecks($drinkType, $money, $sugars, $extraHot));
 
