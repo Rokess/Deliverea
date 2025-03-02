@@ -3,6 +3,7 @@
 namespace Deliverea\CoffeeMachine\Tests\Integration\Console;
 
 use Deliverea\CoffeeMachine\Console\MakeDrinkCommand;
+use Deliverea\CoffeeMachine\Service\MakeDrinkService;
 use Deliverea\CoffeeMachine\Tests\Integration\IntegrationTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -12,7 +13,8 @@ class MakeDrinkCommandTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        $this->application->add(new MakeDrinkCommand());
+        $makeDrinkService = new MakeDrinkService();
+        $this->application->add(new MakeDrinkCommand($makeDrinkService));
     }
 
     /**
