@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Deliverea\CoffeeMachine\Console;
 
 use Deliverea\CoffeeMachine\Service\MakeDrinkService;
@@ -11,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class MakeDrinkCommand extends Command
 {
-    protected const CommandName = 'app:order-drink';
+    protected const COMMAND_NAME = 'app:order-drink';
     private $makeDrinkService;
 
     public function __construct(MakeDrinkService $makeDrinkService) {
-        parent::__construct(self::CommandName);
+        parent::__construct('app:order-drink');
         $this->makeDrinkService = $makeDrinkService;
     }
 

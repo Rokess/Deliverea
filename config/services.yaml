@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Deliverea\CoffeeMachine\Service\MakeDrinkService: ~
+
+  Deliverea\CoffeeMachine\Console\MakeDrinkCommand:
+    arguments:
+      $makeDrinkService: '@Deliverea\CoffeeMachine\Service\MakeDrinkService'
+    tags:
+      - { name: 'console.command', command: 'app:order-drink' }
